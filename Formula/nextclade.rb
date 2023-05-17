@@ -13,7 +13,8 @@ class Nextclade < Formula
   end
 
   test do
-    system "#{bin}/nextclade", "--help"
-    system "#{bin}/nextalign", "--help"
+    system "#{bin}/nextclade", "dataset", "get", "--name", "sars-cov-2", "--output-dir", "data"
+    system "#{bin}/nextclade", "run", "-d", "sars-cov-2", "--output-all", "results", "data/sequences.fasta"
+    system "#{bin}/nextalign", "run", "--input-ref", "data/reference.fasta", "--output-all", "results", "data/sequences.fasta"
   end
 end
