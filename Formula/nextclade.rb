@@ -9,11 +9,11 @@ class Nextclade < Formula
 
   def install
     mv ".env.example", ".env"
-    system "cargo", "build", "--release", "--bin=nextclade"
-    bin.install "target/release/nextclade"
+    system "cargo", "install", "--bins", "--path", "packages_rs/nextclade-cli", "--locked", "--root", prefix
   end
 
   test do
     system "#{bin}/nextclade", "--help"
+    system "#{bin}/nextalign", "--help"
   end
 end
