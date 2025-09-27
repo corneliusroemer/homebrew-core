@@ -3,6 +3,15 @@ class Moreutils < Formula
   homepage "https://joeyh.name/code/moreutils/"
   url "https://git.joeyh.name/index.cgi/moreutils.git/snapshot/moreutils-0.70.tar.gz"
   sha256 "f2bf46d410ba567cc8d01507e94916994e48742722e690dc498fab59f5250132"
+
+  # Fix sponge failing on macOS for ≥2 GiB inputs (EINVAL from read(2) > INT_MAX).
+  # Upstream tracker (Debian BTS): https://bugs.debian.org/1116452
+  # Remove on next upstream release that includes this fix.
+  patch do
+    url "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1116452;filename=moreutils-e615f47-sponge%3A+Fix+%22Invalid+argument%22+error+with+2GB%2B+files+on+macOS.patch;msg=5"
+    sha256 "ce2e535805bdd06c1d62ef7e94d0373dec42a61be27835258b7e83979f5872fe"
+  end
+  
   license all_of: [
     "GPL-2.0-or-later",
     { any_of: ["GPL-2.0-only", "Artistic-2.0"] },
